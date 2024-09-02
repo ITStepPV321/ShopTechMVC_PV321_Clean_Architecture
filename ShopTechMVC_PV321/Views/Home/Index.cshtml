@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Product>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h4>@ViewData["message"]</h4>
+    <h5>@ViewBag.Users[1]</h5>
+    <ol class="text-start">
+    @foreach (string user in ViewBag.Users)
+    {
+        <li>@user</li>
+        
+    }
+    </ol>
+
+    <h3>Products </h3>
+    <ul class="text-start">
+        @* Model => @model List<Product> *@
+    @foreach (var product in Model) 
+    {
+        <li>@product.Title</li>
+
+    }
+    </ul>
+</div>
