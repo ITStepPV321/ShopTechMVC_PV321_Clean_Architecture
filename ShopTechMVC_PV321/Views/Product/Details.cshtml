@@ -1,0 +1,19 @@
+﻿@model Product
+
+@if(Model!=null){
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        @Model.Title
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Model.Description</li>
+        <li class="list-group-item">@Model.Price грн.</li>
+    </ul>
+    </div>
+    <a asp-controller="Product" asp-action="Index">Назад</a>
+
+}
+else
+{
+    
+<h3>Product is not found... </h3>}

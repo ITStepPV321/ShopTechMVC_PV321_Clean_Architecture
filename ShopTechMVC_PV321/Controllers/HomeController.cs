@@ -30,7 +30,8 @@ namespace ShopTechMVC_PV321.Controllers
             return View();
         }
 
-
+        //https://localhost:7001/Shop 
+        [Route("Shop")]
         public IActionResult About() {
             return View();
         }
