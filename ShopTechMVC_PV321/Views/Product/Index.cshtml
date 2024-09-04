@@ -5,7 +5,9 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
+                <th scope="col">Image</th>
                 <th scope="col">Title</th>
+                <th scope="col">Category</th>
                 <th scope="col">Description</th>
                 <th scope="col">Price</th>
                 <th scope="col">Actions</th>
@@ -15,7 +17,9 @@
             @foreach(var product in Model){
             <tr>
                 <th scope="row">@product.Id</th>
+                    <td><img style="width: 100px" src="@product.ImagePath" /></td>
                     <td>@product.Title</td>
+                    <td>@product.Category?.Name</td>
                     <td>@product.Description</td>
                     <td>@product.Price грн.</td>
                     @* \~/Product/Detail/1 *@

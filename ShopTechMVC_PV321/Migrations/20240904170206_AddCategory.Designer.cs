@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopTechMVC_PV321.Data;
 
@@ -10,9 +11,11 @@ using ShopTechMVC_PV321.Data;
 namespace ShopTechMVC_PV321.Migrations
 {
     [DbContext(typeof(ShopTechMVCDbContext))]
-    partial class ShopTechMVCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240904170206_AddCategory")]
+    partial class AddCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +72,7 @@ namespace ShopTechMVC_PV321.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("CategotyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -88,15 +91,13 @@ namespace ShopTechMVC_PV321.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CategoryId = 1,
+                            CategotyId = 1,
                             Description = "Екран 15.6\" IPS (1920x1080) Full HD 144 Гц, матовый / AMD Ryzen 7 5700U (1.8 - 4.3 ГГц) / RAM 16 ГБ / SSD 512 ГБ / nVidia GeForce RTX 3050, 4 ГБ / без ОД / LAN / Wi-Fi / Bluetooth / веб-камера / без ОС / 2.15 кг / черний",
                             ImagePath = "https://content.rozetka.com.ua/goods/images/big_tile/451110968.jpg",
                             Price = 20354m,
@@ -105,7 +106,7 @@ namespace ShopTechMVC_PV321.Migrations
                         new
                         {
                             Id = 2,
-                            CategoryId = 1,
+                            CategotyId = 1,
                             Description = "Екран 15.6\" IPS (1920x1080) FullHD / Intel Jasper Lake N5100 (2.8 ГГц) / RAM 8 ГБ / SSD 2560020ГБ / Intel UHD Graphics / Wi-Fi 6 / Bluetooth 5 / веб-камера / Windows 11 Home (64bit) / 1.6 кг / Титан.",
                             ImagePath = "https://content.rozetka.com.ua/goods/images/big_tile/451110968.jpg",
                             Price = 30454m,
@@ -114,7 +115,7 @@ namespace ShopTechMVC_PV321.Migrations
                         new
                         {
                             Id = 3,
-                            CategoryId = 1,
+                            CategotyId = 1,
                             Description = "Екран 14” IPS (2160x1440) Full HD, глянцевий з покриттям проти відблиску/Intel Celeron N5100 (1.1 — 2.8 ГГц)/RAM 8 ГБ/SSD 256 ГБ/Intel UHD Graphics/без ОД/Wi-Fi/Bluetooth/вебкамера/Windows 10 Home/1.5 кг/темно-сірий",
                             ImagePath = "https://content.rozetka.com.ua/goods/images/big_tile/451110968.jpg",
                             Price = 28454m,
@@ -123,28 +124,12 @@ namespace ShopTechMVC_PV321.Migrations
                         new
                         {
                             Id = 4,
-                            CategoryId = 2,
+                            CategotyId = 2,
                             Description = "Екран (6.7\", OLED (Super Retina XDR), 2796x1290) / Apple A17 Pro / основна потрійна камера: 48 Мп + 12 Мп + 12 Мп, фронтальна камера: 12 Мп / 256 ГБ вбудованої пам'яті / 3G / LTE / 5G / GPS / Nano-SIM / iOS 17",
                             ImagePath = "https://content1.rozetka.com.ua/goods/images/big_tile/364834187.jpg",
                             Price = 28454m,
                             Title = "Мобільний телефон Apple iPhone 15 Pro Max 256GB Black"
                         });
-                });
-
-            modelBuilder.Entity("ShopTechMVC_PV321.Models.Product", b =>
-                {
-                    b.HasOne("ShopTechMVC_PV321.Models.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("ShopTechMVC_PV321.Models.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

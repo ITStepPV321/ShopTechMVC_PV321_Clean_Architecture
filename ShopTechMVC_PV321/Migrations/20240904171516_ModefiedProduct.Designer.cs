@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopTechMVC_PV321.Data;
 
@@ -10,9 +11,11 @@ using ShopTechMVC_PV321.Data;
 namespace ShopTechMVC_PV321.Migrations
 {
     [DbContext(typeof(ShopTechMVCDbContext))]
-    partial class ShopTechMVCDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240904171516_ModefiedProduct")]
+    partial class ModefiedProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTechMVC_PV321.Data;
 using ShopTechMVC_PV321.Helpers;
 using ShopTechMVC_PV321.Models;
@@ -7,7 +8,7 @@ namespace ShopTechMVC_PV321.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly List<Product> _products;
+        //private readonly List<Product> _products;
         //private readonly ShopTechMVCDbContext _context = new ShopTechMVCDbContext();
         private readonly ShopTechMVCDbContext _context;
         public ProductController(ShopTechMVCDbContext context)
@@ -19,7 +20,8 @@ namespace ShopTechMVC_PV321.Controllers
         {
             //TODO: dbcontext
             //return View(_products);
-            return View(_context.Products.ToList<Product>());
+            var products = _context.Products.Include(product=>product.Category).ToList<Product>();
+            return View(products);
         }
 
         //public IActionResult Details(int id)
