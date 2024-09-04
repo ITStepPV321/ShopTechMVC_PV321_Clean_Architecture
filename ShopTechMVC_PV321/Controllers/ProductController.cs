@@ -8,11 +8,12 @@ namespace ShopTechMVC_PV321.Controllers
     public class ProductController : Controller
     {
         private readonly List<Product> _products;
-        private readonly ShopTechMVCDbContext _context = new ShopTechMVCDbContext();
-
-        public ProductController()
+        //private readonly ShopTechMVCDbContext _context = new ShopTechMVCDbContext();
+        private readonly ShopTechMVCDbContext _context;
+        public ProductController(ShopTechMVCDbContext context)
         {
             //_products = SeedData.GetProduct();
+            _context = context;
         }
         public IActionResult Index()
         {

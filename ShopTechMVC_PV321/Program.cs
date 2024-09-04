@@ -1,7 +1,14 @@
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using ShopTechMVC_PV321.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+string connection = builder.Configuration.GetConnectionString("ShopTechDbConnection");
+builder.Services.AddDbContext<ShopTechMVCDbContext>(options => options.UseSqlServer(connection));
+
 
 var app = builder.Build();
 
