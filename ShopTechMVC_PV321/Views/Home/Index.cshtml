@@ -3,25 +3,51 @@
 }
 @model List<Product>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <h4>@ViewData["message"]</h4>
-    <h5>@ViewBag.Users[1]</h5>
+  @*   <h4>@ViewData["message"]</h4>
+    <h5>@ViewBag.Users[1]</h5> *@
     <ol class="text-start">
-    @foreach (string user in ViewBag.Users)
+ @*    @foreach (string user in ViewBag.Users)
     {
         <li>@user</li>
         
     }
-    </ol>
+    </ol> *@
 
-    <h3>Products </h3>
-    <ul class="text-start">
-        @* Model => @model List<Product> *@
-    @foreach (var product in Model) 
-    {
-        <li>@product.Title</li>
 
-    }
-    </ul>
-</div>
+     <h3>Products </h3>
+
+     <div class="container">
+            <div class="container text-center">
+                <div class="row align-items-start">
+                    <div class="col-3">
+                        <ul class="nav flex-column">
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link active" asp-controller="Home" asp-action="Index" asp-route-category_id="@category.Id">@category.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-9">
+                        @* start col 9 *@
+                        <div class="row">
+                        @foreach(var product in Model) {
+                            <div class="card" style="width: 18rem;">
+                                <img src="@product.ImagePath" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">@product.Title</h5>
+                                    <p class="card-text">@product.Description</p>
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
+                        }
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+     </div>
+ </div>

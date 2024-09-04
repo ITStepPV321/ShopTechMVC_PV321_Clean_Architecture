@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ShopTechMVC_PV321.Data;
 using ShopTechMVC_PV321.Helpers;
 using ShopTechMVC_PV321.Models;
 using System.Diagnostics;
@@ -8,21 +10,35 @@ namespace ShopTechMVC_PV321.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly List<Product> _products;
+        
+        private readonly ShopTechMVCDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,ShopTechMVCDbContext context)
         {
             _logger = logger;
-            _products = new List<Product>(SeedData.GetProduct());
+            _context = context;
+
+        
         }
         //ViewData, ViewBag, ModelView
         //https://localhost:7001/Home/Index 
         //https://localhost:7001/ 
-        public IActionResult Index()
+        public IActionResult Index(int? category_id)
         {
-            ViewData["message"] = "We are learning...";
-            ViewBag.Users = new List<string> { "Admin", "Author", "Guest" };  
-            return View(_products);
+            //ViewData["message"] = "We are learning...";
+            //ViewBag.Users = new List<string> { "Admin", "Author", "Guest" };
+            List<Category> categories = _context.Categories.ToList();
+            categories.Insert(0, new Category() { Id = 0, Name = "All", Description = "All Products" });
+            ViewBag.Categories = categories;
+            var products = _context.Products.Include(product=>product.Category).ToList();
+            
+            if (category_id != null && category_id>0 )
+            {
+                products = products.Where(p => p.CategoryId ==category_id).ToList();
+            }
+
+         
+            return View(products);
         }
 
         public IActionResult Privacy()
