@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace ShopTechMVC_PV321.Models
+namespace DataAccess.Models
 {
     public class Category
     {

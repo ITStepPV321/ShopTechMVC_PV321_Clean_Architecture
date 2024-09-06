@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ShopTechMVC_PV321.Data;
-using ShopTechMVC_PV321.Helpers;
-using ShopTechMVC_PV321.Models;
+using DataAccess.Data;
+using DataAccess.Models;
 
 namespace ShopTechMVC_PV321.Controllers
 {

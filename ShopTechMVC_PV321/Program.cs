@@ -1,6 +1,7 @@
+using DataAccess.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using ShopTechMVC_PV321.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

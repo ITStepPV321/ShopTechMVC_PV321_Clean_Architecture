@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShopTechMVC_PV321.Models
+namespace DataAccess.Models
 {
     public class Product
     {

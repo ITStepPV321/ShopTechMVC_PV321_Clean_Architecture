@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShopTechMVC_PV321.Helpers;
-using ShopTechMVC_PV321.Models;
-namespace ShopTechMVC_PV321.Data
+using DataAccess.Models;
+
+namespace DataAccess.Data
 {
     public class ShopTechMVCDbContext:DbContext
     {
