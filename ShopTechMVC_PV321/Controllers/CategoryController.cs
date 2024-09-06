@@ -46,6 +46,7 @@ namespace ShopTechMVC_PV321.Controllers
         }
 
         // GET: Category/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();

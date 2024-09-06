@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
 using DataAccess.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -57,5 +58,14 @@ namespace ShopTechMVC_PV321.Controllers
             //return View("Index",_products);
             return View("Index",_context.Products.ToList<Product>());
         }
+
+        [HttpGet]
+        public IActionResult Create() {
+            var categories = _context.Categories.ToList();
+            ViewBag.ListCategories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
+            return View();
+        }
+
+
     }
 }
