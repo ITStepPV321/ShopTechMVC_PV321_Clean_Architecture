@@ -62,7 +62,7 @@ namespace ShopTechMVC_PV321.Controllers
         [HttpGet]
         public IActionResult Create() {
             var categories = _context.Categories.ToList();
-            ViewBag.ListCategories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
+            ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
             return View();
         }
 
