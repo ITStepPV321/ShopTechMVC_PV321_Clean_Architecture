@@ -20,9 +20,11 @@ namespace ShopTechMVC_PV321.Controllers
 
         
         }
+
         //ViewData, ViewBag, ModelView
         //https://localhost:7001/Home/Index 
         //https://localhost:7001/ 
+        [HttpGet]
         public IActionResult Index(int? category_id)
         {
             //ViewData["message"] = "We are learning...";
@@ -35,6 +37,14 @@ namespace ShopTechMVC_PV321.Controllers
             if (category_id != null && category_id>0 )
             {
                 products = products.Where(p => p.CategoryId ==category_id).ToList();
+            }
+            //for defination active link or disable
+            if (category_id == null)
+            {
+                ViewBag.NotActiveCategoryId = 0;
+            }
+            else {
+                ViewBag.NotActiveCategoryId = category_id;
             }
 
          
