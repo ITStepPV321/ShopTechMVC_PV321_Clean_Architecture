@@ -66,6 +66,13 @@ namespace ShopTechMVC_PV321.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Create(Product product) { 
+            _context.Products.Add(product);
+            _context.SaveChanges(true);
+            return RedirectToAction("Index");
+        }
+
 
     }
 }
