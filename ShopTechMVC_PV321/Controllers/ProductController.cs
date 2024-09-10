@@ -67,12 +67,45 @@ namespace ShopTechMVC_PV321.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Product product) { 
+        public IActionResult Create(Product product) {
+            if (!ModelState.IsValid) {
+                var categories = _context.Categories.ToList();
+                ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
+                return View(product);
+            }
             _context.Products.Add(product);
             _context.SaveChanges(true);
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {   //Request.Form
+            //RouteData.Values["id"] = id;
+            //Request.Query["id"] = id;
+            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            if (product != null)
+            {
+                var categories = _context.Categories.ToList();
+                ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
+                return View(product);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product product) // Product.Title =Title... 
+        {
+            if (!ModelState.IsValid)
+            {
+                var categories = _context.Categories.ToList();
+                ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
+                return View(product);
+            }
+            _context.Products.Update(product);
+            _context.SaveChanges(true);
+            return RedirectToAction("Index");
+        }
 
     }
 }
