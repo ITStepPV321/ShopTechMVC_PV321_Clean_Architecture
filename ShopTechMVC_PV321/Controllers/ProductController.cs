@@ -69,7 +69,13 @@ namespace ShopTechMVC_PV321.Controllers
 
         [HttpPost]
         public IActionResult Create(Product product) {
-         
+            //level Property (All)
+            if (product.Price == 999)
+                ModelState.AddModelError("Price", "999 -  not correct data");
+            //level Model (ModelOnly)
+            if (product.Title == product.Description)
+                ModelState.AddModelError("", "Назва Title не повинна співпадати з Description");
+            
             if (!ModelState.IsValid) {
                 string errorMessage = "";
                 foreach (var item in ModelState)
