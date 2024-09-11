@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -68,9 +69,24 @@ namespace ShopTechMVC_PV321.Controllers
 
         [HttpPost]
         public IActionResult Create(Product product) {
+         
             if (!ModelState.IsValid) {
+                string errorMessage = "";
+                foreach (var item in ModelState)
+                {
+                    if (item.Value.ValidationState == ModelValidationState.Invalid)
+                    {
+                        errorMessage = $"{errorMessage} \n Errros for prop {item.Key}\n";
+                        //перебираємо всі помилки
+                        foreach (var error in item.Value.Errors)
+                        {
+                            errorMessage = $"{errorMessage}{error.ErrorMessage}\n";
+                        }
+                    }
+                }
                 var categories = _context.Categories.ToList();
                 ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
+                ViewBag.ErrorMessage=errorMessage;
                 return View(product);
             }
             _context.Products.Add(product);

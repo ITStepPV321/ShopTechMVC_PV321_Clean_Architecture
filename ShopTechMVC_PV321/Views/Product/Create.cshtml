@@ -5,7 +5,7 @@
 }
 @model DataAccess.Models.Product
 <h1>Create</h1>
-
+<h5>@ViewBag.ErrorMessage</h5>
 <h4>Product</h4>
 <hr />
 <div class="row">
@@ -14,24 +14,33 @@
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price"  class="form-control" />
+                <span asp-validation-for="Price"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="ImagePath" class="control-label"></label>
                 <input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label">Category</label>
                 <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-select">
                     <option>Select category </option>
                  </select>
+                <span asp-validation-for="CategoryId"></span>
 
             </div>
    
@@ -45,3 +54,8 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

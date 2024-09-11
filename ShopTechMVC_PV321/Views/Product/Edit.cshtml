@@ -21,11 +21,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
+                <input asp-for="Price" type="number" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="ImagePath" class="control-label"></label>
-                <input asp-for="ImagePath" class="form-control" />
+                <input asp-for="ImagePath" type="url" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label">Category</label>
@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
