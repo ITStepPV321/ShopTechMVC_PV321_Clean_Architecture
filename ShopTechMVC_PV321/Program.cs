@@ -1,6 +1,8 @@
 using DataAccess.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 string connection = builder.Configuration.GetConnectionString("ShopTechDbConnection");
 builder.Services.AddDbContext<ShopTechMVCDbContext>(options => options.UseSqlServer(connection));
+
+//add FluentValidation
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
 
 var app = builder.Build();

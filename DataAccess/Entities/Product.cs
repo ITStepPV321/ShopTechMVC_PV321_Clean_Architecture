@@ -1,8 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DataAccess.EntitiesConfiguration;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess.Entities
 {
+    [EntityTypeConfiguration(typeof(ProductConfiguration))]
     public class Product
     {
         /*
@@ -25,7 +28,7 @@ namespace DataAccess.Entities
 
         [Display(Name ="Назва продукту")]
         //[Required (ErrorMessage ="Не вказано назву товару")]
-        //[StringLength(150,MinimumLength =2,ErrorMessage ="Мінімальна кількість симовлів => 2")]
+        //[StringLength(150,MinimumLength=2,ErrorMessage ="Мінімальна кількість симовлів => 2")]
         public string? Title { get; set; }
 
         [Display(Name = "Опис продукту")]

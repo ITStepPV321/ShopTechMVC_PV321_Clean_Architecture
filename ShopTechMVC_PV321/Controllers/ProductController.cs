@@ -4,6 +4,7 @@ using DataAccess.Data;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using ShopTechMVC_PV321.Validation;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -118,7 +119,10 @@ namespace ShopTechMVC_PV321.Controllers
         [HttpPost]
         public IActionResult Edit(Product product) // Product.Title =Title... 
         {
-            if (!ModelState.IsValid)
+            var validator = new ProductValidator();
+            var result= validator.Validate(product);
+            if(!result.IsValid)
+            //if (!ModelState.IsValid)
             {
                 var categories = _context.Categories.ToList();
                 ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
