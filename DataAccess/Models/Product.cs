@@ -25,14 +25,14 @@ namespace DataAccess.Models
 
         [Display(Name ="Назва продукту")]
         [Required (ErrorMessage ="Не вказано назву товару")]
-        [StringLength(100,MinimumLength =2,ErrorMessage ="Мінімальна кількість симовлів => 2")]
+        [StringLength(150,MinimumLength =2,ErrorMessage ="Мінімальна кількість симовлів => 2")]
         public string? Title { get; set; }
 
         [Display(Name = "Опис продукту")]
         public string? Description { get; set; }
 
         [Display(Name = "Ціна продукту")]
-        [Range(1,100000,ErrorMessage ="Вихід за межі діапазону (1;100000)")]
+        [Range(0,double.MaxValue,ErrorMessage ="Вихід за межі діапазону (1;100000)")]
         public decimal Price { get; set; } = 0;
        
         [Display(Name ="URL адреса зображення продукту")]
