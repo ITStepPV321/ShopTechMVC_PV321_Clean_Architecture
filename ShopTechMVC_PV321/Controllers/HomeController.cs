@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
-using DataAccess.Models;
+using DataAccess.Entities;
 using System.Diagnostics;
 using ShopTechMVC_PV321.Models;
 

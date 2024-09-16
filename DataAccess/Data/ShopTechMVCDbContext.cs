@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using DataAccess.Models;
+using DataAccess.Entities;
 
 namespace DataAccess.Data
 {

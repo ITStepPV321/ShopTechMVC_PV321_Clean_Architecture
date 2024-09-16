@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
-using DataAccess.Models;
+using DataAccess.Entities;
 
 namespace ShopTechMVC_PV321.Controllers
 {

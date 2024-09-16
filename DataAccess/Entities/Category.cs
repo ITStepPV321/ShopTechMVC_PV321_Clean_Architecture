@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace DataAccess.Models
+namespace DataAccess.Entities
+
 {
     public class Category
     {
