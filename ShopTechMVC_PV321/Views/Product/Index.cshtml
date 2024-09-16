@@ -1,6 +1,10 @@
 ﻿@* @using DataAccess.Models *@
 @* @model List<DataAccess.Models.Product> *@
 @model List<Product>
+@{
+    string productImagePlacholder = @"https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-18055.jpg";
+
+}
 <h1>Products our Shop</h1>
 <a asp-controller="Product" asp-action="Create">Create</a></td>
 
@@ -21,7 +25,7 @@
             @foreach(var product in Model){
             <tr>
                 <th scope="row">@product.Id</th>
-                    <td><img style="width: 100px" src="@product.ImagePath" /></td>
+                    <td><img style="width: 100px" src="@(product.ImagePath??productImagePlacholder)" /></td>
                     <td>@product.Title</td>
                     <td>@product.Category?.Name</td>
                     <td>@product.Description</td>

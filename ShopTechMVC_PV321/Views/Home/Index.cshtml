@@ -1,7 +1,8 @@
-﻿@{
+﻿@model List<Product>
+@{
     ViewData["Title"] = "Home Page";
+    string productImagePlacholder = @"https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-18055.jpg";
 }
-@model List<Product>
 <div class="text-start">
   @*   <h4>@ViewData["message"]</h4>
     <h5>@ViewBag.Users[1]</h5> *@
@@ -47,7 +48,7 @@
                             @if(Model.Any()){
                         @foreach(var product in Model) {
                             <div class="card" style="width: 18rem;">
-                                <img src="@product.ImagePath" class="card-img-top" alt="...">
+                                <img src="@(product.ImagePath??productImagePlacholder)" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">@product.Title</h5>
                                     <p class="card-text">@product.Description</p>
