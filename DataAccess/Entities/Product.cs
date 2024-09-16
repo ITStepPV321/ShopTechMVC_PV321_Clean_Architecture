@@ -24,7 +24,7 @@ namespace DataAccess.Entities
         public int Id { get; set; }
 
         [Display(Name ="Назва продукту")]
-        [Required (ErrorMessage ="Не вказано назву товару")]
+        //[Required (ErrorMessage ="Не вказано назву товару")]
         //[StringLength(150,MinimumLength =2,ErrorMessage ="Мінімальна кількість симовлів => 2")]
         public string? Title { get; set; }
 
