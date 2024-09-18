@@ -23,7 +23,7 @@ namespace ShopTechMVC_PV321.Controllers
 
         }
 
-        public List<int> Add(int id)
+        public IActionResult Add(int id)
         {
             if(_context.Products.Find(id)==null) return null;
             List<int> idList = HttpContext.Session.GetObject<List<int>>("mycart");
@@ -34,7 +34,7 @@ namespace ShopTechMVC_PV321.Controllers
             }
             idList.Add(id); //add id of product to cart
             HttpContext.Session.SetObject<List<int>>("mycart", idList);
-            return idList;
+            return RedirectToAction("Index");
         }
     }
 }
