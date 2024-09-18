@@ -9,5 +9,6 @@
 {
     <p>@product.Title</p>
     <p>@product.Price</p>
+    <a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
     <hr />
 }

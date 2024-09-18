@@ -36,5 +36,27 @@ namespace ShopTechMVC_PV321.Controllers
             HttpContext.Session.SetObject<List<int>>("mycart", idList);
             return RedirectToAction("Index");
         }
+
+
+        public IActionResult Delete(int id)
+        {
+            if (_context.Products.Find(id) == null)
+            {
+                return null;
+            }
+
+            List<int> idList = HttpContext.Session.GetObject<List<int>>("mycart")!;
+
+            if (idList == null)
+            {
+                idList = new List<int>();
+            }
+
+            idList.Remove(id);
+
+            HttpContext.Session.SetObject<List<int>>("mycart", idList);
+
+            return RedirectToAction("Index");
+        }
     }
 }
