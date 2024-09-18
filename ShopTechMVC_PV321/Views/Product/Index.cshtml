@@ -31,7 +31,7 @@
                     <td>@product.Description</td>
                     <td>@product.Price грн.</td>
                     @* \~/Product/Detail/1 *@
-                    <td><a href="~/Product/Details/@product.Id">Info</a></td>
+                    @* <td><a href="~/Product/Details/@product.Id">Info</a></td> *@
                     <td>
                      <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id">Info</a>
                     <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">Delete</a>

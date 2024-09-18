@@ -35,7 +35,7 @@ namespace ShopTechMVC_PV321.Controllers
         //}
         //[Route("Product/Details2/{id:int}")]
         [Route("Product/Details/{id:int}")]
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, string? returnUri=null)
         {
             //https://localhost:7001/Product/Details?id=1
             // var id = int.Parse(Request.Query["id"]);
@@ -43,6 +43,7 @@ namespace ShopTechMVC_PV321.Controllers
             // var id = int.Parse(RouteData.Values["id"].ToString());
 
             //var product = _products.FirstOrDefault(p => p.Id == id);
+            ViewBag.ReturnUri = returnUri;
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
             return View(product);
 
