@@ -29,6 +29,16 @@ namespace ShopTechMVC_PV321.Controllers
         {
             //ViewData["message"] = "We are learning...";
             //ViewBag.Users = new List<string> { "Admin", "Author", "Guest" };
+            //Example using Cookies
+            //append Cookie
+            //HttpContext.Response.Cookies.Append("name", "Tetiana");
+            //get Cookie
+            //ViewBag.NameAuthor = HttpContext.Request.Cookies["name"];
+            //delete Cookie
+            HttpContext.Response.Cookies.Delete("name");
+
+
+
             List<Category> categories = _context.Categories.ToList();
             categories.Insert(0, new Category() { Id = 0, Name = "All", Description = "All Products" });
             ViewBag.Categories = categories;
@@ -59,6 +69,7 @@ namespace ShopTechMVC_PV321.Controllers
         //https://localhost:7001/Shop 
         [Route("Shop")]
         public IActionResult About() {
+            HttpContext.Response.Cookies.Delete("name");
             return View();
         }
 

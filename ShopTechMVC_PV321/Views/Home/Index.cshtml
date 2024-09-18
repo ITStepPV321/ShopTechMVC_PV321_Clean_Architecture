@@ -14,7 +14,12 @@
     }
     </ol> *@
 
-
+    @if (Context.Request.Cookies.ContainsKey("name"))
+    {
+        <p>@Context.Request.Cookies["name"]</p>
+        <p>   @ViewBag.NameAuthor</p>
+    }
+    
      <h3>Products </h3>
 
      <div class="container">
@@ -53,7 +58,8 @@
                                     <h5 class="card-title">@product.Title</h5>
                                     <p class="card-text">@product.Description</p>
                                     <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" asp-route-returnUri="@Context.Request.Path" class="btn btn-primary">Details</a>
-                                    <p>@Context.Request.Path</p>
+                                    @* <p>@Context.Request.Path</p> *@
+                                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id" class="btn btn-success">Add to Cart</a>
                                 </div>
                             </div>
                                 }

@@ -16,6 +16,10 @@ builder.Services.AddDbContext<ShopTechMVCDbContext>(options => options.UseSqlSer
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
+//add Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 
 var app = builder.Build();
 
@@ -33,6 +37,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
