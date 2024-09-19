@@ -18,11 +18,12 @@ namespace ShopTechMVC_PV321.Controllers
         {
             List<int> idList = HttpContext.Session.GetObject<List<int>>("mycart");
             if(idList==null) idList = new List<int>();
-            var products = _context.Products.Include(p => p.Category);
+            var products = _context.Products.Include(p => p.Category).Where(p=>idList.Contains(p.Id)).ToList();
             //working....
-			List <Product> productsInCart=idList.Select(id=> _context.Products.Find(id)).ToList();
-            
-            return View(productsInCart);
+            //List <Product> productsInCart=idList.Select(id=> _context.Products.Include(p => p.Category).ToList<Product>().Find(id)).ToList();
+           
+
+            return View(products);
 
         }
 
@@ -62,4 +63,7 @@ namespace ShopTechMVC_PV321.Controllers
             return RedirectToAction("Index");
         }
     }
+    //using Dictionary
+    // plusCountProduct(int id)
+    // minusCountProduct(int id)
 }
