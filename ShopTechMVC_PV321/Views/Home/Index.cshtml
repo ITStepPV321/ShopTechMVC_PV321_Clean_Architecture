@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<ProductCartViewModel>
 @{
     ViewData["Title"] = "Home Page";
     string productImagePlacholder = @"https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-18055.jpg";
@@ -17,9 +17,14 @@
     @if (Context.Request.Cookies.ContainsKey("name"))
     {
         <p>@Context.Request.Cookies["name"]</p>
-        <p>   @ViewBag.NameAuthor</p>
+        <p>   @ViewBag.NameAuthor
+        </p>
     }
-    
+    else
+    {<p>Not Found Cookies</p>
+        
+    }
+
      <h3>Products </h3>
 
      <div class="container">
@@ -53,14 +58,22 @@
                             @if(Model.Any()){
                         @foreach(var product in Model) {
                             <div class="card" style="width: 18rem;">
-                                <img src="@(product.ImagePath??productImagePlacholder)" class="card-img-top" alt="...">
+                                <img src="@(product.Product.ImagePath??productImagePlacholder)" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">@product.Title</h5>
-                                    <p class="card-text">@product.Description</p>
-                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" asp-route-returnUri="@Context.Request.Path" class="btn btn-primary">Details</a>
+                                    <h5 class="card-title">@product.Product.Title</h5>
+                                    <p class="card-text">@product.Product.Description</p>
+                                    <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Product.Id" asp-route-returnUri="@Context.Request.Path" class="btn btn-primary">Details</a>
                                     @* <p>@Context.Request.Path</p> *@
-                                        <a asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id" class="btn btn-success">Add to Cart</a>
-                                </div>
+                                    @if(!product.IsInCart){
+                                            <a asp-controller="Cart" asp-action="Add" asp-route-id="@product.Product.Id" class="btn btn-success">Add to Cart</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-controller="Cart" asp-action="Index"  class="btn btn-secondary disabled" >Is In Cart</a>
+                                            @* <a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Product.Id" class="btn btn-secondary">Delete</a> *@
+
+                                        }
+                                    </div>
                             </div>
                                 }
                             }

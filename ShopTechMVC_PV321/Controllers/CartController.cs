@@ -1,6 +1,7 @@
 ﻿using DataAccess.Data;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ShopTechMVC_PV321.Helpers;
 
 namespace ShopTechMVC_PV321.Controllers
@@ -17,15 +18,17 @@ namespace ShopTechMVC_PV321.Controllers
         {
             List<int> idList = HttpContext.Session.GetObject<List<int>>("mycart");
             if(idList==null) idList = new List<int>();
-            List<Product> products=idList.Select(id=> _context.Products.Find(id)).ToList();
+            var products = _context.Products.Include(p => p.Category);
+            //working....
+			List <Product> productsInCart=idList.Select(id=> _context.Products.Find(id)).ToList();
             
-            return View(products);
+            return View(productsInCart);
 
         }
 
         public IActionResult Add(int id)
         {
-            if(_context.Products.Find(id)==null) return null;
+            if(_context.Products.Find(id)==null) return NotFound();
             List<int> idList = HttpContext.Session.GetObject<List<int>>("mycart");
             if (idList == null)
             {
@@ -34,7 +37,7 @@ namespace ShopTechMVC_PV321.Controllers
             }
             idList.Add(id); //add id of product to cart
             HttpContext.Session.SetObject<List<int>>("mycart", idList);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
 

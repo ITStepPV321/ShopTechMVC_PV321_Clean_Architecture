@@ -4,6 +4,7 @@ using DataAccess.Data;
 using DataAccess.Entities;
 using System.Diagnostics;
 using ShopTechMVC_PV321.Models;
+using ShopTechMVC_PV321.Helpers;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -42,11 +43,10 @@ namespace ShopTechMVC_PV321.Controllers
             List<Category> categories = _context.Categories.ToList();
             categories.Insert(0, new Category() { Id = 0, Name = "All", Description = "All Products" });
             ViewBag.Categories = categories;
-            var products = _context.Products.Include(product=>product.Category).ToList();
-            
-            if (category_id != null && category_id>0 )
+            var products = _context.Products.Include(product => product.Category).ToList();
+            if (category_id != null && category_id > 0)
             {
-                products = products.Where(p => p.CategoryId ==category_id).ToList();
+                products = products.Where(p => p.CategoryId == category_id).ToList();
             }
             //for defination active link or disable
             if (category_id == null)
@@ -57,8 +57,20 @@ namespace ShopTechMVC_PV321.Controllers
                 ViewBag.NotActiveCategoryId = category_id;
             }
 
+            var productsCartViewModel = products.Select(p => new ProductCartViewModel
+            {
+                Product=p,
+                IsInCart=IsProductInCart(p.Id),
+
+            }).ToList();
          
-            return View(products);
+            return View(productsCartViewModel);
+        }
+
+        private bool IsProductInCart(int id) {
+            List<int> idsList = HttpContext.Session.GetObject<List<int>>("mycart");
+            if (idsList == null) return false;
+            return idsList.Contains(id);
         }
 
         public IActionResult Privacy()
