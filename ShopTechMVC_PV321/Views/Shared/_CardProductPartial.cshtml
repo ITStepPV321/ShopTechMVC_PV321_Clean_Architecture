@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	string productImagePlacholder = @"https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-18055.jpg";
+
+}
+@model ProductCartViewModel
+<div class="card" style="width: 18rem;">
+	<div style="height: 12rem; padding:1rem;">
+		<img src="@(Model.Product.ImagePath??productImagePlacholder)" class="card-img-top w-100 h-100" style="object-fit:contain;" alt="...">
+	</div>
+	<div class="card-body">
+		<h5 class="card-title">@Model.Product.Title</h5>
+		<p class="card-text">@(Model.Product.Description!.Length <= 30 ? Model.Product.Description : Model.Product.Description.Substring(0, 30) + "...").</p>
+		<a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Product.Id" asp-route-returnUri="@Context.Request.Path" class="btn btn-primary">Details</a>
+		@* <p>@Context.Request.Path</p> *@
+		@if (!Model.IsInCart)
+		{
+			<a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Product.Id" class="btn btn-success">Add to Cart</a>
+		}
+		else
+		{
+			<a asp-controller="Cart" asp-action="Index" class="btn btn-secondary disabled">Is In Cart</a>
+			@* <a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Product.Id" class="btn btn-secondary">Delete</a> *@
+
+		}
+	</div>
+</div>
