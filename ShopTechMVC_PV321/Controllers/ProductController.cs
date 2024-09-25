@@ -5,9 +5,11 @@ using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ShopTechMVC_PV321.Validation;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopTechMVC_PV321.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         //private readonly List<Product> _products;
@@ -33,6 +35,7 @@ namespace ShopTechMVC_PV321.Controllers
         //    return View(product);
 
         //}
+        [AllowAnonymous]
         //[Route("Product/Details2/{id:int}")]
         [Route("Product/Details/{id:int}")]
         public IActionResult Details(int id, string? returnUri=null)

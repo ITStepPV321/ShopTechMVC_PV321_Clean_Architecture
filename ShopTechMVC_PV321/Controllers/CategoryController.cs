@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Data;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopTechMVC_PV321.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ShopTechMVCDbContext _context;

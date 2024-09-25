@@ -1,10 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using DataAccess.Entities
 
+
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
+    
+
 <ul class="navbar-nav">
+   
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
