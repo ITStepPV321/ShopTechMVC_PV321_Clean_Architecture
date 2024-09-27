@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-string connection = builder.Configuration.GetConnectionString("ShopTechDbConnection");
+string connection = builder.Configuration.GetConnectionString("ShopTechMVC_PV321ContextConnection");
 builder.Services.AddDbContext<ShopTechMVCDbContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddDefaultIdentity<AppUser>(options=>options.SignIn.RequireConfirmedAccount=true)
