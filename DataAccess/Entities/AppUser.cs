@@ -9,9 +9,9 @@ namespace DataAccess.Entities
 {
     public class AppUser : IdentityUser
     {   //custom properties
-        //public string? SecondName { get; set; }
-        //public string? FirstName { get; set; }
-        //public DateTime Birthdate { get; set; }
-       // public ICollection<Order>? Orders { get; set; }
+        public string? SecondName { get; set; }
+        public string? FirstName { get; set; }
+        public DateTime? Birthdate { get; set; }
+        // public ICollection<Order>? Orders { get; set; }
     }
 }
