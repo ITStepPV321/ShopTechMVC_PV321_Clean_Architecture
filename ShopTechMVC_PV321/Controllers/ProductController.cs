@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ShopTechMVC_PV321.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class ProductController : Controller
     {
         //private readonly List<Product> _products;

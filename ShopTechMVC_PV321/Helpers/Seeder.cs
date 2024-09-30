@@ -35,7 +35,8 @@ namespace ShopTechMVC_PV321.Helpers
 				var user = new AppUser
 				{
 					UserName = USERNAME,
-					Email = USERNAME
+					Email = USERNAME,
+					EmailConfirmed = true,
 				};
 
 				var result=userManager.CreateAsync(user,PASSWORD).Result;
