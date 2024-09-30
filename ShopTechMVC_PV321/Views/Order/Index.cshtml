@@ -3,12 +3,24 @@
 }
 
 <h2>Orders</h2>
-@if (Model.Any()) { 
-	<ul class="list-group">
 
-		<li class="list-group-item">An item</li>
-		
+@if (Model.Any())
+{
+	<ul class="list-group">
+		@foreach (Order order in Model)
+		{
+			<li class="list-group-item">
+				<h4>Order @order.Id:</h4>
+				<p>Order Date: @order.OrderDate</p>
+				<p> Products : @order.IdsProduct</p>
+				<p>Order by: @order.AppUserId</p>
+				<p>Total: @order.TotalPrice</p>
+			</li>
+		}
 	</ul>
-}else{
-	<p>Orders not found....</p>
 }
+else
+{
+	<p>Orders not found...</p>
+}
+
