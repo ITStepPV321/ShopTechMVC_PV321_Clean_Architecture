@@ -5,6 +5,7 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
+using ShopTechMVC_PV321.Helpers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,8 @@ string connection = builder.Configuration.GetConnectionString("ShopTechMVC_PV321
 builder.Services.AddDbContext<ShopTechMVCDbContext>(options => options.UseSqlServer(connection));
 
 builder.Services.AddDefaultIdentity<AppUser>(options=>options.SignIn.RequireConfirmedAccount=true)
-                .AddEntityFrameworkStores<ShopTechMVCDbContext>();
+    .AddRoles<IdentityRole>()            
+    .AddEntityFrameworkStores<ShopTechMVCDbContext>();
 
 //add FluentValidation
 builder.Services.AddFluentValidationAutoValidation();
@@ -33,13 +35,19 @@ builder.Services.AddSession(options => {
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+using (var scope = app.Services.CreateScope()) { 
+ var serviceProvider= scope.ServiceProvider;
+    //передали обєкт ServiceProvider класу ініціалізтора
+    Seeder.SeedRoles(serviceProvider).Wait();
+    Seeder.SeedAdmin(serviceProvider).Wait();
 }
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Home/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
