@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ShopTechMVC_PV321.Validation;
 using Microsoft.AspNetCore.Authorization;
+using BusinessLogic.Interfaces;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -17,17 +18,19 @@ namespace ShopTechMVC_PV321.Controllers
         //private readonly List<Product> _products;
         //private readonly ShopTechMVCDbContext _context = new ShopTechMVCDbContext();
         private readonly ShopTechMVCDbContext _context;
-        public ProductController(ShopTechMVCDbContext context)
+        private readonly IProductsService _productsService;
+        public ProductController(ShopTechMVCDbContext context, IProductsService productsService)
         {
             //_products = SeedData.GetProduct();
             _context = context;
+            _productsService = productsService; 
         }
         
         public IActionResult Index()
         {
             //TODO: dbcontext
             //return View(_products);
-            var products = _context.Products.Include(product=>product.Category).ToList<Product>();
+            var products = _productsService.GetAll();
             return View(products);
         }
 

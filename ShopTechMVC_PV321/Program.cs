@@ -6,6 +6,8 @@ using FluentValidation;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
 using ShopTechMVC_PV321.Helpers;
+using BusinessLogic.Interfaces;
+using BusinessLogic.Sevices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +33,12 @@ builder.Services.AddSession(options => {
     options.Cookie.HttpOnly = false;
     options.Cookie.IsEssential = true;
 });
-
+//The build-in IoC containar supports three kinds og lifitimes
+// Singelton  - при першому запиті стоврюється один обєк для всії
+// Transient - при кожному звернені створюється новий обєкт.
+// Scoped - стоврення обєкта сервісу для кожного запиту (controller=> action)
+//add remode service
+builder.Services.AddScoped<IProductsService,ProductsService>();
 
 var app = builder.Build();
 
