@@ -1,6 +1,7 @@
-﻿@* @using DataAccess.Models *@
+﻿@using BusinessLogic.DTOs
+@* @using DataAccess.Models *@
 @* @model List<DataAccess.Models.Product> *@
-@model List<Product>
+@model List<ProductDto>
 @{
     string productImagePlacholder = @"https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-18055.jpg";
 
@@ -27,7 +28,7 @@
                 <th scope="row">@product.Id</th>
                     <td><img style="width: 100px" src="@(product.ImagePath??productImagePlacholder)" /></td>
                     <td>@product.Title</td>
-                    <td>@product.Category?.Name</td>
+                    <td>@product.CategoryName</td>
                     <td>@product.Description</td>
                     <td>@product.Price грн.</td>
                     @* \~/Product/Detail/1 *@

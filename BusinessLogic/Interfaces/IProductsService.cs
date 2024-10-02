@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ namespace BusinessLogic.Interfaces
     public interface IProductsService
     {
         //functional 
-        List<Category> GetAllCategories();
-        List<Product> GetAll();
-        Product GetById(int? id);
-        Product GetEditProduct(int? id);
-        void Create(Product product);
-        void Edit(Product product);
+        List<CategoryDto> GetAllCategories();
+        List<ProductDto> GetAll();
+        ProductDto GetById(int? id);
+        ProductDto GetEditProduct(int? id);
+        void Create(CreateProductDto productDto);
+        void Edit(ProductDto productDto);
         void Delete(int? id);
     }
 }

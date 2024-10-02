@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ShopTechMVC_PV321.Validation;
 using Microsoft.AspNetCore.Authorization;
 using BusinessLogic.Interfaces;
+using BusinessLogic.DTOs;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -53,20 +54,22 @@ namespace ShopTechMVC_PV321.Controllers
 
             //var product = _products.FirstOrDefault(p => p.Id == id);
             ViewBag.ReturnUri = returnUri;
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            //var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _productsService.GetById(id);
             return View(product);
 
         }
         [Authorize(Roles = "Admin")]
-        public IActionResult Delete(int id) { 
+        public IActionResult Delete(int id) {
             //find in database
             //var product = _products.FirstOrDefault(product => product.Id == id);
-            var product = _context.Products.FirstOrDefault(product => product.Id == id);
-            if (product != null) {
-                //_products.Remove(product);
-                _context.Products.Remove(product);
-                _context.SaveChanges();
-            }
+            //var product = _context.Products.FirstOrDefault(product => product.Id == id);
+            //if (product != null) {
+            //    ////_products.Remove(product);
+            //    _context.Products.Remove(product);
+            //    _context.SaveChanges();
+            //}
+            _productsService.Delete(id);
          
             //return View("Index",_products);
             return View("Index",_context.Products.ToList<Product>());
@@ -74,13 +77,13 @@ namespace ShopTechMVC_PV321.Controllers
 
         [HttpGet]
         public IActionResult Create() {
-            var categories = _context.Categories.ToList();
+            var categories = _productsService.GetAllCategories();
             ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Product product) {
+        public IActionResult Create(CreateProductDto product) {
             //level Property (All)
             if (product.Price == 999)
                 ModelState.AddModelError("Price", "999 -  not correct data");
@@ -102,13 +105,14 @@ namespace ShopTechMVC_PV321.Controllers
                         }
                     }
                 }
-                var categories = _context.Categories.ToList();
+                var categories = _productsService.GetAllCategories();
                 ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
                 ViewBag.ErrorMessage=errorMessage;
                 return View(product);
             }
-            _context.Products.Add(product);
-            _context.SaveChanges(true);
+            //_context.Products.Add(product);
+            //_context.SaveChanges(true);
+            _productsService.Create(product);
             return RedirectToAction("Index");
         }
 
