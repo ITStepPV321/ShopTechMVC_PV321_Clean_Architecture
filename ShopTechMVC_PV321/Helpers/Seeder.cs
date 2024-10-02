@@ -9,8 +9,8 @@ namespace ShopTechMVC_PV321.Helpers
 	}
 	public static class Seeder
 	{ //інєкція  відбувається у класі ініціалізатора 
-
-		public static async Task SeedRoles(this IServiceProvider appServices) {
+     
+        public static async Task SeedRoles(this IServiceProvider appServices) {
 			//не можна виклористовувати інєкцію залежностей, тому виуористовуємо метод Get...
 			//отримуємо можливість працювати із ролями
 			var roleManager= appServices.GetRequiredService<RoleManager<IdentityRole>>();

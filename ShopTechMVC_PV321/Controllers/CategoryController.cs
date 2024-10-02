@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ShopTechMVC_PV321.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         private readonly ShopTechMVCDbContext _context;

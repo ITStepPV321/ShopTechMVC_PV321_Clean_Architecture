@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ShopTechMVC_PV321.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    //[Authorize(Roles = "Admin")]
+    //[Authorize(Roles ="Admin, Manager")]
+    //[Authorize(Roles = "Manager")]
     public class ProductController : Controller
     {
         //private readonly List<Product> _products;
@@ -20,6 +22,7 @@ namespace ShopTechMVC_PV321.Controllers
             //_products = SeedData.GetProduct();
             _context = context;
         }
+        
         public IActionResult Index()
         {
             //TODO: dbcontext
@@ -51,6 +54,7 @@ namespace ShopTechMVC_PV321.Controllers
             return View(product);
 
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id) { 
             //find in database
             //var product = _products.FirstOrDefault(product => product.Id == id);
