@@ -72,7 +72,7 @@ namespace ShopTechMVC_PV321.Controllers
             _productsService.Delete(id);
          
             //return View("Index",_products);
-            return View("Index",_context.Products.ToList<Product>());
+            return View("Index",_productsService.GetAll());
         }
 
         [HttpGet]

@@ -39,6 +39,7 @@ namespace BusinessLogic.Sevices
             if (productDto != null)
             { //ProductDto=> Product
             Product product = new Product() { 
+                Id=productDto.Id,
                 Title = productDto.Title,
                 Description = productDto.Description,
                 Price = productDto.Price,
