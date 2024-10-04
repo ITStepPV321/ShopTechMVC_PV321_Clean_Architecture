@@ -9,6 +9,7 @@ using ShopTechMVC_PV321.Helpers;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Sevices;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using ShopTechMVC_PV321.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,7 @@ builder.Services.AddSession(options => {
 //Singleton objects are the same for every object and every request.
 //add remode service
 builder.Services.AddScoped<IProductsService, ProductsService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 
