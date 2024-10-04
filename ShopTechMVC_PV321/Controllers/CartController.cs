@@ -17,7 +17,7 @@ namespace ShopTechMVC_PV321.Controllers
         }
         public IActionResult Index()
         {
-          return View(_cartService.GetProducts());
+          return View(_cartService.GetProducts()); //List<ProductDto>
          }
 
         public IActionResult Add(int id)
@@ -29,21 +29,7 @@ namespace ShopTechMVC_PV321.Controllers
 
         public IActionResult Delete(int id)
         {
-            if (_context.Products.Find(id) == null)
-            {
-                return null;
-            }
-
-            List<int> idList = HttpContext.Session.GetObject<List<int>>("mycart")!;
-
-            if (idList == null)
-            {
-                idList = new List<int>();
-            }
-
-            idList.Remove(id);
-
-            HttpContext.Session.SetObject<List<int>>("mycart", idList);
+           _cartService.Remove(id);
 
             return RedirectToAction("Index");
         }

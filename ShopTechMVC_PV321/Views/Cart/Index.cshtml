@@ -5,7 +5,8 @@
 	string productImagePlacholder = @"https://img.freepik.com/premium-vector/no-photo-available-vector-icon-default-image-symbol-picture-coming-soon-web-site-mobile-app_87543-18055.jpg";
 
 }
-@model List<Product>
+@using BusinessLogic.DTOs;
+@model List<ProductDto>
 <h2>Cart</h2>
 <div class="container">
 	@if(Model.Any()){
@@ -31,7 +32,7 @@
 					</td>
 					<td>@product.Title</td>
 					<td>@product.Price</td>
-					<td>@product.Category?.Name</td>
+					<td>@product.CategoryName</td>
 					<td>
 						<a asp-controller="Cart" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
 

@@ -49,6 +49,7 @@ builder.Services.AddSession(options => {
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope()) { 
