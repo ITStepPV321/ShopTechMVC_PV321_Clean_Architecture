@@ -7,9 +7,10 @@ using DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
 using ShopTechMVC_PV321.Helpers;
 using BusinessLogic.Interfaces;
-using BusinessLogic.Sevices;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 using ShopTechMVC_PV321.Services;
+using BusinessLogic.Helpers;
+using BusinessLogic.Sevices;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,10 @@ builder.Services.AddDefaultIdentity<AppUser>(options=>options.SignIn.RequireConf
 //add FluentValidation
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+//configure Auto Mapper
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+
 
 //add Session
 builder.Services.AddDistributedMemoryCache();
