@@ -105,6 +105,8 @@ namespace ShopTechMVC_PV321.Controllers
                         }
                     }
                 }
+
+
                 var categories = _productsService.GetAllCategories();
                 ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
                 ViewBag.ErrorMessage=errorMessage;
@@ -121,10 +123,11 @@ namespace ShopTechMVC_PV321.Controllers
         {   //Request.Form
             //RouteData.Values["id"] = id;
             //Request.Query["id"] = id;
-            var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            //var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            var product=_productsService.GetById(id);
             if (product != null)
             {
-                var categories = _context.Categories.ToList();
+                var categories = _productsService.GetAllCategories();
                 ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
                 return View(product);
             }
@@ -132,19 +135,20 @@ namespace ShopTechMVC_PV321.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product) // Product.Title =Title... 
+        public IActionResult Edit(ProductDto product) // Product.Title =Title... 
         {
-            var validator = new ProductValidator();
-            var result= validator.Validate(product);
-            if(!result.IsValid)
-            //if (!ModelState.IsValid)
+            //var validator = new ProductValidator();
+           // var result= validator.Validate(product);
+           // if(!result.IsValid)
+            if (!ModelState.IsValid)
             {
                 var categories = _context.Categories.ToList();
                 ViewBag.Categories = new SelectList(categories, nameof(Category.Id), nameof(Category.Name));
                 return View(product);
             }
-            _context.Products.Update(product);
-            _context.SaveChanges(true);
+            _productsService.Edit(product);
+            //_context.Products.Update(product);
+            //_context.SaveChanges(true);
             return RedirectToAction("Index");
         }
 

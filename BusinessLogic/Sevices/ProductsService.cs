@@ -4,11 +4,6 @@ using BusinessLogic.Interfaces;
 using DataAccess.Data;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Sevices
 {
@@ -16,23 +11,32 @@ namespace BusinessLogic.Sevices
     {
         private readonly ShopTechMVCDbContext _context;
         private readonly IMapper _mapper;
-        public ProductsService(ShopTechMVCDbContext context, IMapper mapper)
+        private readonly IFileService _fileService;
+        public ProductsService(ShopTechMVCDbContext context,
+                                IMapper mapper,
+                                IFileService fileService)
         {
             _context=context;
             _mapper=mapper;
+            _fileService=fileService;
         }
         public void Create(CreateProductDto productDto)
         {
-            //ProductDto=> Product
-            //Product product = new Product() { 
-            //    Title = productDto.Title,
-            //    Description = productDto.Description,
-            //    Price = productDto.Price,
-            //    ImagePath= productDto.ImagePath,   
-            //    CategoryId  = productDto.CategoryId,
+			// 1 - manual mapping
+			//ProductDto=> Product
+			//Product product = new Product() { 
+			//    Title = productDto.Title,
+			//    Description = productDto.Description,
+			//    Price = productDto.Price,
+			//    ImagePath= productDto.ImagePath,   
+			//    CategoryId  = productDto.CategoryId,
 
-            //};
-            var product=_mapper.Map<Product>(productDto);   // ProductDto=>Product(Entity)
+			//};
+			// save image and get file path!!!!
+			if (productDto.Image != null)
+				productDto.ImagePath = _fileService.SaveProductImage(productDto.Image).Result;
+			// 2 - using auto mapper
+			var product =_mapper.Map<Product>(productDto);   // ProductDto=>Product(Entity)
             _context.Products.Add(product);
             _context.SaveChanges(true);
         }
@@ -42,16 +46,19 @@ namespace BusinessLogic.Sevices
             var productDto = GetById(id);
             if (productDto != null)
             { //ProductDto=> Product
-            //Product product = new Product() { 
-            //    Id=productDto.Id,
-            //    Title = productDto.Title,
-            //    Description = productDto.Description,
-            //    Price = productDto.Price,
-            //    ImagePath= productDto.ImagePath,   
-            //    CategoryId  = productDto.CategoryId,
+			  //Product product = new Product() { 
+			  //    Id=productDto.Id,
+			  //    Title = productDto.Title,
+			  //    Description = productDto.Description,
+			  //    Price = productDto.Price,
+			  //    ImagePath= productDto.ImagePath,   
+			  //    CategoryId  = productDto.CategoryId,
 
-            //};
-            var product= _mapper.Map<Product>(productDto);
+				//};
+
+				if (productDto.ImagePath != null)
+					_fileService.DeleteProductImage(productDto.ImagePath);
+				var product= _mapper.Map<Product>(productDto);
                 //_products.Remove(product);
                 _context.Products.Remove(product);
                 _context.SaveChanges();
@@ -63,17 +70,21 @@ namespace BusinessLogic.Sevices
             var productOld = GetById(productDto.Id); 
             if (productOld != null)
             {
-                //ProductDto=> Product
-                //Product product = new Product()
-                //{
-                //    Title = productDto.Title,
-                //    Description = productDto.Description,
-                //    Price = productDto.Price,
-                //    ImagePath = productDto.ImagePath,
-                //    CategoryId = productDto.CategoryId,
+				//ProductDto=> Product
+				//Product product = new Product()
+				//{
+				//    Title = productDto.Title,
+				//    Description = productDto.Description,
+				//    Price = productDto.Price,
+				//    ImagePath = productDto.ImagePath,
+				//    CategoryId = productDto.CategoryId,
 
-                //};
-                var product = _mapper.Map<Product>(productDto );
+				//};
+				// save image and get file path
+				if (productDto.Image != null)
+					productDto.ImagePath = _fileService.EditProductImage(productDto.ImagePath, productDto.Image).Result;
+
+				var product = _mapper.Map<Product>(productDto );
                 _context.Products.Update(product);
                 _context.SaveChanges();
             }

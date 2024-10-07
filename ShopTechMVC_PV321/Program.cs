@@ -53,6 +53,7 @@ builder.Services.AddSession(options => {
 //add remode service
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 
 var app = builder.Build();

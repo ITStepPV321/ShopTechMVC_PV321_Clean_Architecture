@@ -20,6 +20,15 @@ namespace BusinessLogic.Helpers
             //map ProductDto=> Product;
             CreateMap<ProductDto, Product>();
 
+            //Ігнорити властивість Image в процесі передачі даних на productDto
+            CreateMap<Product, ProductDto>()
+              .ForMember(productDto => productDto.Image, opt => opt.Ignore());
+
+            CreateMap<Product, CreateProductDto>()
+                         .ForMember(productDto => productDto.Image, opt => opt.Ignore());
+
+            CreateMap<CreateProductDto, Product>();
+
 
         }
     }

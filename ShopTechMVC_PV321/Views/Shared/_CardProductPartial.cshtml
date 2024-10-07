@@ -8,7 +8,7 @@
 @model ProductCartViewModel
 <div class="card" style="width: 18rem;">
 	<div style="height: 12rem; padding:1rem;">
-		<img src="@(Model.Product.ImagePath??productImagePlacholder)" class="card-img-top w-100 h-100" style="object-fit:contain;" alt="...">
+		<img src="@(Model.Product.ImagePath??"./images/NoImage.jpg")" class="card-img-top w-100 h-100" style="object-fit:contain;" alt="...">
 	</div>
 	<div class="card-body">
 		<h5 class="card-title">@Model.Product.Title</h5>
