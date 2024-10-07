@@ -6,6 +6,9 @@ using System.Security.Claims;
 using ShopTechMVC_PV321.Helpers;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Entities;
+using BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace ShopTechMVC_PV321.Controllers
 {
@@ -13,9 +16,12 @@ namespace ShopTechMVC_PV321.Controllers
     public class OrderController : Controller
     {
         private readonly ShopTechMVCDbContext _context;
+        private readonly IMailService _mailService;
 
-        public OrderController(ShopTechMVCDbContext context) {
+
+        public OrderController(ShopTechMVCDbContext context, IMailService mailService) {
             _context = context;
+            _mailService = mailService;
         }
         // GET: OrderController
         public ActionResult Index()
@@ -47,7 +53,22 @@ namespace ShopTechMVC_PV321.Controllers
 			};
             await _context.Orders.AddAsync(newOrder);
             await _context.SaveChangesAsync();
+
             HttpContext.Session.Clear();    
+            //send to email
+            string? userName = HttpContext.User.FindFirstValue(ClaimTypes.Name);
+            var orders  = _context.Orders.Where(o => o.AppUserId == userId).ToList(); ;
+            string text = "";
+            foreach (var item in orders)
+            {
+                text += $"{item.Id} {item.OrderDate}  {item.TotalPrice}\n";
+
+            }
+            await _mailService.SendMailAsync("Your Order", text, "velos72416@rowplant.com");
+            await _mailService.SendMailAsync("Your Order", text,userName!);
+
+
+
 			return RedirectToAction(nameof(Index));
         }
 

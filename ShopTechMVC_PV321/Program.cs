@@ -54,6 +54,7 @@ builder.Services.AddSession(options => {
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IMailService, MailService>();
 
 
 var app = builder.Build();
